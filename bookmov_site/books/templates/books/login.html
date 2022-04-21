@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href= "../../static/books/css/login.css">
+    <link rel="icon" href="../../static/books/images/assets/icon/favicon.png" type="image/x-icon">
+    <title>Вход на BOOKMov</title>
+  </head>
+    <body>
+    <main>
+        <div class="main-wrapper">
+            <div><h1><a class="logo" href="#">BOOKMov</a></h1></div>
+            <div class="form-wrapper">
+                <div class="form-content">
+                    <p>Вход на BOOKMov</p>
+                <form action="" method="post"> {% csrf_token %}
+                  <label for="id_username">Логин:</label>
+                    <input type="text" name="username" class="form-input-name" maxlength="150" required id="id_username">
+                      <label for="id_password">Пароль:</label>
+                        <input type="password" name="password" class="form-password" required id="id_password">
+                          <input class="input-button-enter" type="submit" value="Вход">
+                </form>
+                  <form action="{% url 'password_reset' %}" method="post"> {% csrf_token %}
+                    <input class="input-button-forgot_password" type="submit" value="Забыли пароль?">
+                  </form>
+                    <form action="{% url 'registration' %}" method="post"> {% csrf_token %}
+                      <input class="input-button-new_account" type="submit" value="Создать новый аккаунт">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    </body>
+</html>
