@@ -21,7 +21,7 @@ from bookmov_site import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('books.urls')),
+    path('', include('books.urls'))
 ]
 
 if settings.DEBUG:

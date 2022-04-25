@@ -1,38 +1,76 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/normalize.css">
-    <link rel="stylesheet" href="./css/all-pajes.css">
-    <link rel="stylesheet" href="./css/home.css">
-    <link rel="icon" href="./assets/icon/Favicon.png" type="image/x-icon">
-    <title>Добавление книги</title>
+    <link rel="stylesheet" href="../../static/books/css/normalize.css">
+    <link rel="stylesheet" href="../../static/books/css/all-pages.css">
+    <link rel="stylesheet" href="../../static/books/css/add_books.css">
+    <link rel="icon" href="../../static/books/images/assets/icon/favicon.png" type="image/x-icon">
+    <title>Добавить книгу</title>
 </head>
 <body>
-<header>
+    <header>
         <div class="wrapper">
-            <a class="logo" href="./home.html" title="BOOKMov">BOOKMov</a>
-            <nav class="nav">
-                <ul>
-                    <li><a href="./user-books.html">Мои книги</a></li>
-                    <li><a href="./user-orders.html">Мои заказы</a></li>
-                    <li><a href="./user-messages.html">Сообщения</a></li>
-                </ul>
-            </nav>
-            <div>
-                <button class="user-photo"><a href="#"><img src="./assets/icon/user.png" alt="user"></a></button>
-            </div>
+            <a class="logo" href="{% url 'main'%}" title="BOOKMov">BOOKMov</a>
         </div>
-        <h1>Добавить книгу</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button> Add </button>
-</form>
-
-
+        </div>
+        <h1>BOOKMov</h1>
     </header>
-
+    <main>
+        <div class="wrapper">
+        <form method="post" enctype="multipart/form-data">{% csrf_token %}
+    <p>
+    <label for="id_book_title"></label>
+    <input type="text" name="book_title" class="book_title" maxlength="255" required id="id_book_title"
+           placeholder="название книги">
+  </p>
+  <p>
+    <label for="id_book_image">Выбрать изображение</label>
+    <input type="file" name="book_image" class="choose_img" accept="image/*" required id="id_book_image"
+           placeholder="изображение книги">
+  </p>
+  <p>
+    <label for="id_author"></label>
+    <input type="text" name="author" class="author" maxlength="50" required id="id_author"
+           placeholder="автор">
+  </p>
+  <p>
+    <label for="id_release_year"></label>
+    <input type="number" name="release_year" class="release_year" value="1900" required id="id_release_year"
+           placeholder="год издания">
+  </p>
+  <p>
+    <label for="id_description"></label>
+    <textarea name="description" class="description" cols="40" rows="10" required id="id_description"
+              placeholder="описание">
+</textarea>
+  </p>
+  <p>
+    <label for="id_rating"></label>
+    <input type="number" name="rating" class="rating" value="рейтинг" required id="id_rating"
+           placeholder="рейтинг">
+  </p>
+  <p>
+    <label for="id_comments"></label>
+    <textarea name="comments" class="comments" cols="40" rows="10" required id="id_comments"
+              placeholder="комментарии">
+</textarea>
+  </p>
+<p>
+    <label for="id_user_author"></label>
+    <input type="text" name="user_author" class="user_author" maxlength="255" required id="id_user_author"
+           placeholder="Имя владельца книги">
+  </p>
+<p>
+    <label for="id_info_author"></label>
+    <input type="text" name="info_author" class="info_author" maxlength="255" required id="id_info_author"
+           placeholder="Контактная информация владельца">
+  </p>
+    <button class="button_add" > Добавить книгу </button>
+</form>
+        </div>
+    </main>
 </body>
 </html>

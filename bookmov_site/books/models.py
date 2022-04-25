@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse
@@ -16,6 +17,9 @@ class Books(models.Model):
                                  verbose_name="Рейтинг")
     comments = models.TextField(blank=False, verbose_name="Комментарии")
     time_create = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
+    user_author = models.CharField(max_length=255, null=True, verbose_name="Владелец книги")
+    info_author = models.CharField(max_length=255, null=True, verbose_name='Контакты владельца')
+
 
     def __str__(self):
         return self.book_title

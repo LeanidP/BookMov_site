@@ -1,20 +1,15 @@
 from django.contrib.auth.views import LoginView
+from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, request
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView, CreateView
+from django.views import generic
+from django.views.generic import ListView, TemplateView, CreateView, DetailView
 
 from accounts.forms import LoginUserForm
 from .forms import AddPostForm
 from .models import *
-
-menu = [
-    {'title': "Мои книги", 'url_name': 'my_books'},
-    {'title': "Мои сообщения", 'url_name': 'messages'},
-    {'title': "Мои заказы", 'url_name': 'orders'},
-    {'title': "Аккаунт", 'url_name': 'account'}
-]
 
 
 class index(LoginView):
@@ -37,8 +32,19 @@ class SearchResultsView(ListView):
         return object_list
 
 
-class HomePageView(TemplateView):
-    template_name = 'books/main.html'
+def books_list(request):
+    posts = Books.objects.all()
+    paginator = Paginator(posts, 6)
+    page_number = request.GET.get('page')
+    page_object = paginator.get_page(page_number)
+    return render(request, 'books/main.html', {'page_object': page_object, 'posts': posts})
+
+
+class ShowPost(DetailView):
+    model = Books
+    template_name = 'books/post.html'
+    pk_url_kwarg = 'post_id'
+    context_object_name = 'post'
 
 
 class AddBooksView(CreateView):
@@ -47,11 +53,4 @@ class AddBooksView(CreateView):
     success_url = reverse_lazy('main')
     login_url = reverse_lazy('main')
     raise_exception = True
-
-#    def get_context_data(self, *, object_list=None, **kwargs):
-#        context = super().get_context_data(**kwargs)
-#        c_def = self.get_user_context(title="Добавление книги")
-#        return dict(list(context.items()) + list(c_def.items()))
-
-
 

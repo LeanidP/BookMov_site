@@ -14,10 +14,9 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import CreateView, TemplateView
 from django.views.generic.edit import FormView
 from pkg_resources import _
+from accounts.forms import RegisterUserForm, LoginUserForm
 
 UserModel = get_user_model()
-
-from accounts.forms import RegisterUserForm, LoginUserForm
 
 
 class RegisterUser(CreateView):

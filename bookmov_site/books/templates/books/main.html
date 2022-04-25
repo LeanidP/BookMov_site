@@ -1,29 +1,31 @@
-
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/normalize.css">
-    <link rel="stylesheet" href="./css/all-pajes.css">
-    <link rel="stylesheet" href="./css/home.css">
-    <link rel="icon" href="./assets/icon/Favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../static/books/css/normalize.css">
+    <link rel="stylesheet" href="../../static/books/css/all-pages.css">
+    <link rel="stylesheet" href="../../static/books/css/home.css">
+    <link rel="icon" href="../../static/books/images/assets/icon/favicon.png" type="image/x-icon">
     <title>BookMov</title>
 </head>
 <body>
     <header>
         <div class="wrapper">
-            <a class="logo" href="./home.html" title="BOOKMov">BOOKMov</a>
-            <nav class="nav">
-                <ul>
-                    <li><a href="{% url 'add_post' %}">Мои книги</a></li>
-                    <li><a href="./user-orders.html">Мои заказы</a></li>
-                    <li><a href="./user-messages.html">Сообщения</a></li>
-                </ul>
-            </nav>
+            <a class="logo" href="{% url 'main'%}" title="BOOKMov">BOOKMov</a>
             <div>
-                <button class="user-photo"><a href="#"><img src="./assets/icon/user.png" alt="user"></a></button>
+                <div class="dropdown">
+                    {% if request.user.is_authenticated %}
+  <button class="user"> {{user.username}}</button>
+                     {% else %}
+  <button class="user"><a href="{% url 'login' %}"></a></button>
+                    {% endif %}
+  <div class="dropdown-content">
+    <a href="{% url 'add_post' %}">Добавить книгу</a>
+    <a href="{% url 'logout' %} ">Выход </a>
+  </div>
+</div>
             </div>
         </div>
         <h1>BOOKMov</h1>
@@ -32,19 +34,45 @@
     <main>
         <div class="wrapper">
             <form action="{% url 'search_results' %}" method="get">
-                <img src="./assets/icon/icon-search.png" alt="">
-                <input name="q" type="text" placeholder="Search...">
+                <label>
+                    <input name="q" type="text" class="search-area" placeholder="Search...">
+                </label>
                 <input class="search-button" type="submit" value="найти">
             </form>
+        <div class="posts" {% for p in page_object %}>
+            <h2><a href="{{ p.get_absolute_url }}" ><img src="{{p.book_image.url}}"/></a>
+            <p> {{p.book_title}}</p>
+                <p>{{p.author}}</p>
+            </h2>
+            {% endfor %}
+        </div>
+     {% for posts in page_object %}
+{% endfor %}
+{% block content %}
+{% endblock %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_object.has_previous %}
+            <a href="?page=1">&laquo; начало</a>
+            <a href="?page={{ page_object.previous_page_number }}">предыдущая</a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ page_object.number }} из {{ page_object.paginator.num_pages }}.
+        </span>
+
+        {% if page_object.has_next %}
+            <a href="?page={{ page_object.next_page_number }}">следующая</a>
+            <a href="?page={{ page_object.paginator.num_pages }}">предыдущая &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+
 
         </div>
-        <ul>
-  {% for Books in object_list %}
-    <li>
-      {{ Books.book_title }}, {{ Books.author }}
-    </li>
-  {% endfor %}
-</ul>
+    </div>
     </main>
 
 </body>

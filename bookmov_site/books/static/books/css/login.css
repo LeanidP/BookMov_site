@@ -128,7 +128,7 @@ main .main-wrapper .form-wrapper {
     transition: 0.3s;
 }
 
-.input-button-new_account {
+.input-button-new_account:hover {
     transform: scale(1.05);
 }
 
