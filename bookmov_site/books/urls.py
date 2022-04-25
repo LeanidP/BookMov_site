@@ -1,3 +1,4 @@
+from django.template.defaulttags import url
 from django.urls import path
 from django.contrib.auth import views
 
@@ -19,9 +20,9 @@ urlpatterns = [
          views.PasswordResetConfirmView.as_view(template_name="books/password_reset_confirm.html"), name="password_reset_confirm"),
     path("reset/done/",
          views.PasswordResetCompleteView.as_view(template_name="books/password_reset_complete.html"), name="password_reset_complete"),
-    path('main/', HomePageView.as_view(), name='main'),
+    path('main/', books_list, name='main'),
     path('search/', SearchResultsView.as_view(), name='search_results'),
-    path('add_post/', AddBooksView.as_view(), name='add_post'),
-
+    path('add_post/', AddBooksView.as_view(template_name="books/add_books.html"), name='add_post'),
+    path('post/<int:post_id>/', ShowPost.as_view(), name='post')
 
 ]

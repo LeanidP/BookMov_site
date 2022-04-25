@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/books/css/normalize.css">
+    <link rel="stylesheet" href="../../static/books/css/all-pages.css">
+    <link rel="stylesheet" href="../../static/books/css/post.css">
+    <link rel="icon" href="../../static/books/images/assets/icon/favicon.png" type="image/x-icon">
+    <title>BookMov</title>
+</head>
+<body>
+    <header>
+        <div class="wrapper">
+            <a class="logo" href="{% url 'main'%}" title="BOOKMov">BOOKMov</a>
+            <div>
+                <div class="dropdown">
+                    {% if request.user.is_authenticated %}
+  <button class="user"> {{user.username}}</button>
+                     {% else %}
+  <button class="user"><a href="{% url 'login' %}"></a></button>
+                    {% endif %}
+  <div class="dropdown-content">
+    <a href="{% url 'add_post' %}">Добавить книгу</a>
+    <a href="{% url 'logout' %} ">Выход </a>
+  </div>
+</div>
+            </div>
+        </div>
+        <h1>BOOKMov</h1>
+    </header>
+
+    <main>
+        <div class="wrapper">
+            <div class="book_post">
+        <h1 class="post_book_title">{{post.book_title}}</h1>
+
+<p><img class="post_book_image" src="{{post.book_image.url}}"></p>
+
+<p class="post_author"> Автор книги:{{post.author}}
+</p>
+<p class="post_release_year"> Год издания:{{post.release_year}}
+</p>
+<p class="post_description"> Описание: {{post.description}}
+</p>
+<p class="post_rating"> Рейтинг: {{post.rating}}
+</p>
+<p class="post_comments"> Комментарии владельца: {{post.comments}}
+</p>
+<p class="post_time_create"> Время публикации: {{post.time_create}}
+</p>
+<p class="post_user_author"> Владелец книги: {{post.user_author}}
+</p>
+<p class="post_info_author"> Контакты владельца: {{post.info_author}}
+</p>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
+

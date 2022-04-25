@@ -15,6 +15,8 @@ from pathlib import Path
 import smtplib
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.conf import settings
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -137,3 +139,5 @@ EMAIL_HOST_PASSWORD = 'Martynsoby1988!'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+DJANGO_SETTINGS_MODULE = 'bookmov_site.settings'

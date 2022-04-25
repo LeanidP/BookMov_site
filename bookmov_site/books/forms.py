@@ -7,7 +7,17 @@ from books.models import Books
 class AddPostForm(forms.ModelForm):
     class Meta:
         model = Books
-        fields = ['book_title', 'book_image', 'author', 'release_year', 'description', 'rating', 'comments']
+        fields = [
+            'book_title',
+            'book_image',
+            'author',
+            'release_year',
+            'description',
+            'rating',
+            'comments',
+            'user_author',
+            'info_author'
+        ]
 
     def clean_title(self):
         book_title = self.cleaned_data['book_title']
